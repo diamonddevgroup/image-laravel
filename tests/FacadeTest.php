@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Intervention\Image\Laravel\Tests;
 
-use Error;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Exceptions\DecoderException;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Laravel\Facades\Image;
 use ReflectionClass;
@@ -40,9 +40,9 @@ class FacadeTest extends TestCase
 
     public function testThrowsExceptionWhenReadingNonExistentImage(): void
     {
-        $this->expectException(Error::class);
+        $this->expectException(DecoderException::class);
         $input = 'path/to/non_existent_image.jpg';
-        Image::read(null, $input);
+        Image::read($input);
     }
 
     public function testCreateAnImage(): void
